@@ -7,8 +7,12 @@ from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Flatten
 
 import numpy
 import xml.etree.ElementTree as et
+from sklearn.model_selection import train_test_split
 
-w, h = 32, 32
+w, h = 128, 128
+
+X = numpy.empty((875, w, h, 4))
+Y = numpy.empty((875))
 
 X_train = numpy.empty((599, w, h, 4))
 Y_train = numpy.empty((599))
@@ -17,7 +21,7 @@ X_test = numpy.empty((276, w, h, 4))
 Y_test = numpy.empty((276))
 #print(Y_train)
 
-for a in range(len(X_train)):
+for a in range(875):
   imgPath = 'archive/images/road' + str(a) + '.png'
 
   image = Image.open(imgPath)
@@ -26,7 +30,7 @@ for a in range(len(X_train)):
   
   # np_img = np_img[0:166, 0:254, 0:4]
 
-  X_train[a] = np_img
+  X[a] = np_img
 
   antPath = 'archive/annotations/road' + str(a) + '.xml'
   y = et.parse(antPath)
@@ -36,45 +40,46 @@ for a in range(len(X_train)):
   # print(anno)
   
   if anno == 'trafficlight':
-    Y_train[a] = 0
+    Y[a] = 0
 
   elif anno == 'stop':
-    Y_train[a] = 1
+    Y[a] = 1
 
   elif anno == 'speedlimit':
-    Y_train[a] = 2
+    Y[a] = 2
 
   elif anno == 'crosswalk':
-    Y_train[a] = 3
+    Y[a] = 3
   
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=600, random_state=42)
 
-for a in range(len(X_test)):
-  imgPath = 'archive/images/road' + str(a+600) + '.png'
+# for a in range(len(X_test)):
+#   imgPath = 'archive/images/road' + str(a+600) + '.png'
 
-  image = Image.open(imgPath)
-  image = image.resize((w, h))
-  np_img = numpy.array(image)
+#   image = Image.open(imgPath)
+#   image = image.resize((w, h))
+#   np_img = numpy.array(image)
   
-  # np_img = np_img[0:166, 0:254, 0:4]
+#   # np_img = np_img[0:166, 0:254, 0:4]
 
-  X_test[a] = np_img
+#   X_test[a] = np_img
 
-  antPath = 'archive/annotations/road' + str(a+600) + '.xml'
-  y = et.parse(antPath)
-  anno_file = y.getroot()
+#   antPath = 'archive/annotations/road' + str(a+600) + '.xml'
+#   y = et.parse(antPath)
+#   anno_file = y.getroot()
 
-  anno = anno_file[4][0].text
-  if anno == 'trafficlight':
-    Y_test[a] = 0
+#   anno = anno_file[4][0].text
+#   if anno == 'trafficlight':
+#     Y_test[a] = 0
 
-  elif anno == 'stop':
-    Y_test[a] = 1
+#   elif anno == 'stop':
+#     Y_test[a] = 1
 
-  elif anno == 'speedlimit':
-    Y_test[a] = 2
+#   elif anno == 'speedlimit':
+#     Y_test[a] = 2
 
-  elif anno == 'crosswalk':
-    Y_test[a] = 3
+#   elif anno == 'crosswalk':
+#     Y_test[a] = 3
 
 
 #X_train = X_train.reshape(X_train[0], 166, 254, 4)
@@ -97,36 +102,30 @@ print("Shape after one-hot encoding: ", Y_train.shape)
 
 model = Sequential()
 
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+
 model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
-
-
-model.add(Conv2D(75, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu'))
 model.add(MaxPool2D(pool_size=(2,2)))
-model.add(Dropout(0.3))
+model.add(Dropout(0.6))
 
-
-model.add(Conv2D(125, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu'))
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
 model.add(MaxPool2D(pool_size=(2,2)))
-model.add(Dropout(0.3))
+model.add(Dropout(0.6))
 
-model.add(Conv2D(250, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu'))
-model.add(MaxPool2D(pool_size=(2,2)))
-model.add(Dropout(0.2))
+
+
+
 
 model.add(Flatten())
 
-model.add(Dense(500, activation='relu'))
-model.add(Dropout(0.4))
-model.add(Dense(250, activation='relu'))
-model.add(Dropout(0.3))
-model.add(Dense(100, activation='relu'))
-model.add(Dropout(0.2))
+
+# output layer
 model.add(Dense(4, activation='softmax'))
 
-
+# compiling the sequential model
 model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer='adam')
-#print(Y_test)
 
-model.fit(X_train, Y_train, batch_size=128, epochs=15, validation_data=(X_test, Y_test))
-
-model.evaluate(X_test, Y_test)
+# training the model for 10 epochs
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
