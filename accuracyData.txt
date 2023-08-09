@@ -1,0 +1,242 @@
+model.add(Flatten())
+model.add(Dense(500, activation='relu'))
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=15, validation_data=(X_test, Y_test))
+
+loss: 0.8519 - accuracy: 0.7417 - val_loss: 0.8395 - val_accuracy: 0.749
+
+Added Convolution Layer 
+
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.0280 - accuracy: 0.9983 - val_loss: 0.8535 - val_accuracy: 0.8145
+
+Added Convolution Layer
+
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Conv2D(125, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.1021 - accuracy: 0.9817 - val_loss: 1.0573 - val_accuracy: 0.7855
+
+Decreased nodes in second Convolution Layer
+
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu'))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.2368 - accuracy: 0.9283 - val_loss: 0.9236 - val_accuracy: 0.7636
+
+Decreased nodes in first Convolution Layer and added Dropout Layers after both Convolution Layers
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.8))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.8))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.5054 - accuracy: 0.8350 - val_loss: 0.9819 - val_accuracy: 0.7382
+
+Decreased strength of both Dropout Layers
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.0391 - accuracy: 0.9933 - val_loss: 1.0372 - val_accuracy: 0.7636
+
+Add another Convolution Layer w/ a Pooling and Dropout Layer
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.3641 - accuracy: 0.8883 - val_loss: 0.8049 - val_accuracy: 0.7527
+
+Decrease third layer node count
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(10, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+loss: 0.5313 - accuracy: 0.8267 - val_loss: 0.7561 - val_accuracy: 0.7709
+
+Delete third layer and decrease dropout strength
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.05))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.05))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+
+loss: 0.1040 - accuracy: 0.9633 - val_loss: 0.9888 - val_accuracy: 0.8109
+
+Increase dropout strength to 0.25
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.25))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.25))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=10, epochs=10, validation_data=(X_test, Y_test))
+
+Return dropout strenth to 0.1, increase epoch count to 50, increase batch size to 1
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=50, validation_data=(X_test, Y_test))
+
+loss: 3.0283e-05 - accuracy: 1.0000 - val_loss: 3.6505 - val_accuracy: 0.7636
+
+Don't know how to decrease val_loss. Continues to increase - perhaps due to overfitting?
+
+Increased both dropouts to 0.35
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.35))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.35))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=50, validation_data=(X_test, Y_test))
+
+loss: 0.1458 - accuracy: 0.9750 - val_loss: 1.9581 - val_accuracy: 0.7673
+
+Added another Convolution Layer w/ a dropout layer. Increased all dropouts to 0.55
+
+model = Sequential()
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=50, validation_data=(X_test, Y_test))
+
+loss: 0.2621 - accuracy: 0.9067 - val_loss: 1.0264 - val_accuracy: 0.7636
+
+Deleted third Convolution Layer
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=50, validation_data=(X_test, Y_test))
+
+loss: 0.0071 - accuracy: 0.9983 - val_loss: 2.1858 - val_accuracy: 0.8000
+
+Recovered third Convolution Layer; increased dropout strength to 0.7
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.7))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.7))
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.7))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=50, validation_data=(X_test, Y_test))
+
+loss: 0.5563 - accuracy: 0.8117 - val_loss: 0.7893 - val_accuracy: 0.7455
+
+Made dropout strength 0.6; 200 epochs
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=200, validation_data=(X_test, Y_test))
+
+loss: 0.2079 - accuracy: 0.9533 - val_loss: 1.2938 - val_accuracy: 0.7927
+
+Optimal Model
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.55))
+model.add(Flatten())
+model.add(Dense(4, activation='softmax'))
+model.fit(X_train, Y_train, batch_size=1, epochs=100, validation_data=(X_test, Y_test))
+model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer='adam')
+
+loss: 0.2621 - accuracy: 0.9067 - val_loss: 1.0264 - val_accuracy: 0.7636
