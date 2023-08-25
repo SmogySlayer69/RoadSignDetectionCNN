@@ -2,6 +2,7 @@
 Introduction:
 The development of neural networks, a subset of machine learning technology, is a valuable tool that many industries around the world are using in order to maximize the efficiency of their functionality. The spread of the usage of neural networks around the world has been key to the emergence of new technologies. One of these technologies is the advent of self-driving vehicles, which, if successfully implemented, would be able to improve the safety and efficiency of personal and commercial transportation. A self-driving vehicle, however, has to have the ability to detect the location and type of street signs in its view cone, and the best way to create a system which does this is through a neural network, which is what this repository hopes to provide. A convolutional neural network model which is able to detect 4 classes of common road signage, while also giving the coordinates of its bounding box within the frame. This model, and models similar to it, are able to overcome a major hurdle with the usage of self-driving vehicles. Training these models is able to efficiently create a system which can detect signage and facilitate the usage of these vehicles.
 
+
 Technical Background:
 What is a Neural Network?
 
@@ -15,6 +16,7 @@ How do you train a Neural Network model?
 
 All nodes in a neural network have biases, which either increase or decrease the overall strength of that node. Additionally, all connections between nodes, or edges, have weights, which increase or decrease the chance of that connection being made. When training a neural network model, these biases and weights are randomized. Additionally, the datasets are split into training data and testing data. Training data is used during each cycle of training, or epoch, to find the ‘loss' of the model, which is used to find the gradient, or the necessary change, to each node’s weight and bias. This is done through a process known as backpropagation. This is then repeated through all the training epochs in order to produce a fully fledged neural network.
 
+
 Literature Review:
 
 Efficient Model for Image Classification With Regularization Tricks: This writeup, Taehyeon Kim, Jonghyup Kim, Seyoung Yun hopes to answer questions about the training of CNN models, and how we can make it as efficient as possible. The models outlined in the writing uses the CIFAR-100 dataset, an incredibly popular dataset with over 100 classes of objects of many household objects. It explores different methods of training CNNs in order to improve the accuracy of the final model
@@ -23,8 +25,9 @@ Advancements in Image Classification using Convolutional Neural Network: In this
  
 Deep Learning for Large-Scale Traffic-Sign Detection and Recognition: This paper by Domen Tabernik and Danijel Skoca outline the processes used in a neural network with a goal similar to ours, that being to detect and classify several classes of street signage. They make use of a CNN model which is able to differentiate between 200 sign categories, including many difficult classes that were not previously considered in other works. The techniques used in the paper helped the progress of this project.
 
-
 VSSA-NET: Vertical Spatial Sequence Attention Network for Traffic Sign Detection: This paper outline the techniques used in the development of a novel CNN model, by Yuan Yuan, Zhitong Xiong, and Qi Wang, focus on the intricacies of street sign classification by a neural network. It takes into account the difficulties of detecting small street objects and distinguishing between false targets. They use a variety of novel techniques in their model to account for these difficulties. 
+
+
 Technical Tools:
 The tools used in this model are primarily the Keras library, included with TensorFlow. This gave many of the necessary features and methods required to create, train, and implement CNN models, such as the layer types, training methods, etc. Also used was Element Tree, a Python library which allowed the code to parse through the .xml files, and Scikit-learn, a library which allowed the randomized split of the training and testing datasets. Numpy was also used.
 
