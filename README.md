@@ -34,4 +34,14 @@ The tools used in this model are primarily the Keras library, included with Tens
 The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which contains 4 classes of road signs with 877 images total, alongside their .xml files. 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
+<h2>Experiments:</h2>
+**The Difference between Object Classification and Bounding Box Detection:**
+Object Classification and Bounding Box detection are two problems that require similar neural networks, with some minor differences. We use the same dataset for both problems. However, there are differences in the form of the data that we input into the models. For example, the data in object classification is one hot encoded, as it relates to classification between different categories, while the bounding box is not. 
+
+**Object Classification:**
+'''
+Y_train = np_utils.to_categorical(Y_train, n_classes)
+Y_test = np_utils.to_categorical(Y_test, n_classes)
+'''
+
 
