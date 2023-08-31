@@ -44,5 +44,58 @@ Object Classification and Bounding Box detection are two problems that require s
 Y_train = np_utils.to_categorical(Y_train, n_classes)
 Y_test = np_utils.to_categorical(Y_test, n_classes)
 ```
+The model architecture between the problems is different too. However, they each follow similar patterns. The object classification architecture has a pattern of a repeating Convolutional Layer, Pooling Layer, and Dropout Layer, while the bounding box architecture doesn’t have the Dropout Layer.
 
+**Object Classification**
+```
+model = Sequential()
 
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+
+model.add(Conv2D(50, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+
+model.add(Conv2D(20, kernel_size=(3,3), strides=(1,1), padding='same', activation='relu', input_shape=(w, h, 4)))
+model.add(MaxPool2D(pool_size=(2,2)))
+model.add(Dropout(0.6))
+
+model.add(Flatten())
+
+model.add(Dense(4, activation='softmax'))
+```
+
+**Bounding Box**
+```
+input_shape = (w, h, 4)
+input = tf.keras.layers.Input(input_shape)
+
+base = tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu', )(input)
+base = tf.keras.layers.MaxPooling2D()(base)
+
+base = tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu')(base)
+base = tf.keras.layers.MaxPooling2D()(base)
+
+base = tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu')(base)
+base = tf.keras.layers.MaxPooling2D()(base)
+base = tf.keras.layers.Flatten()(base)
+
+id = tf.keras.layers.Dense(64, activation='relu')(input)
+id = tf.keras.layers.Dense(32, activation='relu')(id)
+id = tf.keras.layers.Dense(4)(id)
+
+model = tf.keras.Model(input, outputs=[id])
+```
+Finally, the loss function of both problems is different, with the Object Classification using categorical cross-entropy, and the Bounding Box using mean squared error.
+
+**Object Classification**
+```
+model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer='adam')
+```
+
+**Bounding Box**
+```
+model.compile(loss=tf.keras.losses.mse, optimizer='sgd', metrics=[get_iou])
+```
