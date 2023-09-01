@@ -42,16 +42,16 @@ def get_iou(ground_truth, pred):
      
     return iou
 
-w, h = 128, 128
+w, h = 256, 256
 
 X = np.empty((875, w, h, 4))
-Y = np.empty((875, 1, 1, 1, 1))
+Y = np.empty((875, 4))
 
 X_train = np.empty((599, w, h, 4))
-Y_train = np.empty((599, 1, 1, 1, 1))
+Y_train = np.empty((599, 4))
 
 X_test = np.empty((276, w, h, 4))
-Y_test = np.empty((276, 1, 1, 1, 1))
+Y_test = np.empty((276, 4))
 
 for a in range(875):
     imgPath = 'archive/images/road' + str(a) + '.png'
@@ -71,6 +71,7 @@ for a in range(875):
     y1 = float(anno_file[4][5][1].text)/h_org
     x2 = float(anno_file[4][5][2].text)/w_org
     y2 = float(anno_file[4][5][3].text)/h_org
+    Y[a] = np.array([x1, x2, y1, y2])
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=600, random_state=42)
 
@@ -79,7 +80,6 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=600, random
 
 X_train /= 255
 X_test /= 255
-
 
 
 #vgg = VGG16(weights="imagenet", include_top=False, input_tensor=Input(shape=(w, h, 4)))
@@ -96,27 +96,35 @@ X_test /= 255
 #bboxHead = Dense(4, activation="sigmoid") (bboxHead)
 #model = Model(inputs=vgg.input, outputs=bboxHead)
 
+model = Sequential()
 input_shape = (w, h, 4)
-input = tf.keras.layers.Input(input_shape)
+model.add(tf.keras.layers.Input(input_shape))
 
-#base = tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu', )(input)
-#base = tf.keras.layers.MaxPooling2D()(base)
+model.add(tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu', ))
+model.add(tf.keras.layers.MaxPooling2D())
 
-#base = tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu')(base)
-#base = tf.keras.layers.MaxPooling2D()(base)
+model.add(tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'))
+model.add(tf.keras.layers.MaxPooling2D())
 
-#base = tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu')(base)
-#base = tf.keras.layers.MaxPooling2D()(base)
-#base = tf.keras.layers.Flatten()(base)
+model.add(tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'))
+model.add(tf.keras.layers.MaxPooling2D())
 
-id = tf.keras.layers.Dense(64, activation='relu')(input)
-id = tf.keras.layers.Dense(32, activation='relu')(id)
-id = tf.keras.layers.Dense(4)(id)
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(64, activation='relu'))
+model.add(tf.keras.layers.Dense(32, activation='relu'))
+model.add(tf.keras.layers.Dense(4))
+#input = tf.keras.layers.Input(input_shape)
 
-model = tf.keras.Model(input, outputs=[id])
 
-model.compile(loss=tf.keras.losses.mse, optimizer='sgd', metrics=[get_iou])
 
-model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=50, epochs=10)
+#id = tf.keras.layers.Flatten()(input)
+#id = tf.keras.layers.Dense(64, activation='relu')(id)
+#id = tf.keras.layers.Dense(32, activation='relu')(id)
+#id = tf.keras.layers.Dense(4)(id)
+
+#model = tf.keras.Model(input, outputs=[id])
+
+model.compile(loss=tf.keras.losses.mse, optimizer='adam', metrics=[get_iou])
+
+model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=10, epochs=10)
 #Accuracy does not change w/ changing of model layers, batch size, or epochs 
-
