@@ -113,3 +113,11 @@ There are lots of other subtle differences that help faciliate the usage of simi
 | 2                                  | 20, 50                        | 2                            | 0.05, 0.05                 | 0.1040   | 0.9633       |
 | 2                                  | 20, 50                        | 2                            | 0.55, 0.55                 | 0.0071   | 0.9983       |
 
+
+<h2>Potential Improvements:</h2>
+
+Some of the code can be changed in order to be more streamlined and understandable. There are some redundant instances of code being used that are unnecessary, and while they do not detract from the outcome of the code, it doesn’t improve it either. Additionally, the preprocessing of the images into numpy arrays can be done more efficiently. Finally, there is room for improvement in the accuracy of both the object classification and bounding box detection models, and increased testing into the network architecture will improve on this. A combined neural network which outlines the bounding box and the class of the object in one file would be a great way to improve on the project, by merging the strengths of both architectures. This, or incorporating more classes of objects within the dataset will allow for a more wide reaching model.
+
+<h2>Conclusion:</h2>
+
+The code shown in this repository is a working example of the strengths of Convolutional Neural Networks and their practical application in a real world problem. While there is ample room for improvement and expansion, this serves to show the ease in which a simple but efficient neural network such as this one can be produced. A scaled up version of models similar to this could be used to facilitate the usage of self-driving vehicles in the future.
