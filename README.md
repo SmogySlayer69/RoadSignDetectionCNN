@@ -58,7 +58,7 @@ Very accurate prediction likely due to the color contrast of the backdrop
 
 Misplaced box likely due to the edge formed by the pole
 
-![Road3](rImages/Image6.png)
+![Road3](Images/Image6.png)
 
 Slightly misplaced box likely due to the upper edge formed by grooves on the pole
 
