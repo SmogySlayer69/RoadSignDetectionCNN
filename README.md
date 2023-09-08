@@ -34,7 +34,7 @@ The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
 <h2>Output Examples</h2>
-Classification Examples
+<h3>Classification Examples</h3>
 
 ![Road1](road34.png)
 
@@ -52,6 +52,7 @@ Model Returns as Traffic Light - Reason for failure is likely the confusion of t
 The Difference between Object Classification and Bounding Box Detection:
 Object Classification and Bounding Box detection are two problems that require similar neural networks, with some minor differences. We use the same dataset for both problems. However, there are differences in the form of the data that we input into the models. For example, the data in object classification is one hot encoded, as it relates to classification between different categories, while the bounding box is not. 
 
+<h3>Bounding Box Examples</h3>
 
 **Object Classification:**
 
@@ -116,7 +117,7 @@ Experiments involving the architectures of both Bounding Box Neural Networks and
 
 <h2>Architecture Hyperparameters Testing</h2>
 
-**Classification**
+**Object Classification**
 
 
 | **Number of Convolutional Layers** | **Convolutional Layer Nodes** | **Number of Dropout Layers** | **Dropout Layer Strenght** | **Loss** | **Accuracy** |
@@ -128,6 +129,19 @@ Experiments involving the architectures of both Bounding Box Neural Networks and
 | 3                                  | 20, 50, 10                    | 3                            | 0.1, 0.1, 0.1              | 0.5313   | 0.8267       |
 | 2                                  | 20, 50                        | 2                            | 0.05, 0.05                 | 0.1040   | 0.9633       |
 | 2                                  | 20, 50                        | 2                            | 0.55, 0.55                 | 0.0071   | 0.9983       |
+
+**Bounding Box**
+
+| **Number of Convolutional Layers** | **Convolutional Layer Nodes** | **Kernel Size** | **Loss** | **IoU** |
+|------------------------------------|-------------------------------|-----------------|----------|---------|
+| 2                                  | 16, 32, 64                    | 3               | 0.1151   | 0.6573  |
+| 2                                  | 16, 32                        | 3               | 0.1588   | 0.6299  |
+| 2                                  | 16, 32, 64, 16                | 3               | 0.0998   | 0.6587  |
+| 2                                  | 16, 32, 64, 32, 16            | 3               | 0.0911   | 0.6823  |
+| 2                                  | 16, 32, 16                    | 3               | 0.1256   | 0.6201  |
+| 2                                  | 32, 64                        | 3               | 0.1459   | 0.6114  |
+| 2                                  | 16, 32, 64, 64, 32, 16        | 3               | 0.0881   | 0.6942  |
+| 2                                  | 16, 32, 64, 128, 64           | 2               | 0.0851   | 0.7105  |
 
 
 <h2>Potential Improvements:</h2>
