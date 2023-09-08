@@ -1,4 +1,3 @@
-![road246](https://github.com/SmogySlayer69/RoadSignDetectionCNN/assets/47265772/6bf4b907-8cf3-42bc-9db6-8c79b76eabb7)
 <h2>Introduction:</h2>
 The development of neural networks, a subset of machine learning technology, is a valuable tool that many industries around the world are using in order to maximize the efficiency of their functionality. The spread of the usage of neural networks around the world has been key to the emergence of new technologies. One of these technologies is the advent of self-driving vehicles, which, if successfully implemented, would be able to improve the safety and efficiency of personal and commercial transportation. A self-driving vehicle, however, has to have the ability to detect the location and type of street signs in its view cone, and the best way to create a system which does this is through a neural network, which is what this repository hopes to provide. A convolutional neural network model which is able to detect 4 classes of common road signage, while also giving the coordinates of its bounding box within the frame. This model, and models similar to it, are able to overcome a major hurdle with the usage of self-driving vehicles. Training these models is able to efficiently create a system which can detect signage and facilitate the usage of these vehicles.
 
@@ -36,7 +35,7 @@ https://www.kaggle.com/datasets/andrewmvd/road-sign-detection
 
 <h2>Output Examples</h2>
 Object Classification:
-<img src="/path/to/img.jpg" alt="Alt text" title="Optional title">
+![road246](https://github.com/SmogySlayer69/RoadSignDetectionCNN/assets/47265772/6bf4b907-8cf3-42bc-9db6-8c79b76eabb7)
 
 <h2>Experiments:</h2>
 The Difference between Object Classification and Bounding Box Detection:
