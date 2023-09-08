@@ -48,6 +48,24 @@ Model Returns as Stop Sign - Reason for success is likely the simplicity of the 
 
 Model Returns as Traffic Light - Reason for failure is likely the confusion of the two signs, with the other sign being similar to a traffic light, and the small scale of the object
 
+<h3>Boudning Box Examples</h3>
+
+![Road3](road4.png)
+
+Very accurate prediction likely due to the color contrast of the backdrop
+
+![Road3](road5.png)
+
+Misplaced box likely due to the edge formed by the pole
+
+![Road3](road6.png)
+
+Slightly misplaced box likely due to the upper edge formed by grooves on the pole
+
+![Road3](road7.png)
+
+Very accurate prediction, considering the size of the object in the frame
+
 <h2>Experiments:</h2>
 The Difference between Object Classification and Bounding Box Detection:
 Object Classification and Bounding Box detection are two problems that require similar neural networks, with some minor differences. We use the same dataset for both problems. However, there are differences in the form of the data that we input into the models. For example, the data in object classification is one hot encoded, as it relates to classification between different categories, while the bounding box is not. 
