@@ -36,6 +36,7 @@ https://www.kaggle.com/datasets/andrewmvd/road-sign-detection
 
 <h2>Output Examples</h2>
 Object Classification:
+![Image1](/Users/Amogh/Documents/TrafficSignDetection/archive/images/road155.png)  
 
 <h2>Experiments:</h2>
 The Difference between Object Classification and Bounding Box Detection:
@@ -43,7 +44,7 @@ Object Classification and Bounding Box detection are two problems that require s
 
 
 **Object Classification:**
-![Image1](/Users/Amogh/Documents/TrafficSignDetection/archive/images/road155.png)  
+
 
 ```
 Y_train = np_utils.to_categorical(Y_train, n_classes)
