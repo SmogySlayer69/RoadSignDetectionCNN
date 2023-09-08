@@ -34,7 +34,7 @@ The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
 <h2>Output Examples</h2>
-Object Classification:
+
 ![Road1](road34.png)
 
 <h2>Experiments:</h2>
