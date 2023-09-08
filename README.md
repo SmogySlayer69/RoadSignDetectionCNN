@@ -36,33 +36,33 @@ https://www.kaggle.com/datasets/andrewmvd/road-sign-detection
 <h2>Output Examples</h2>
 <h3>Classification Examples</h3>
 
-![Road1](road34.png)
+![Road1](Images/Image1.png)
 
 Model Returns as Traffic Light - Reason for success is likely the size and distinct colors of the object itself
 
-![Road2](road58.png)
+![Road2](Images/Image2.png)
 
 Model Returns as Stop Sign - Reason for success is likely the simplicity of the background, as it is an almost soild color that is different from the color of the sign itself
 
-![Road3](road246.png)
+![Road3](Images/Image3.png)
 
 Model Returns as Traffic Light - Reason for failure is likely the confusion of the two signs, with the other sign being similar to a traffic light, and the small scale of the object
 
 <h3>Boudning Box Examples</h3>
 
-![Road3](road4.png)
+![Road3](Images/Image4.png)
 
 Very accurate prediction likely due to the color contrast of the backdrop
 
-![Road3](road5.png)
+![Road3](Images/Image5.png)
 
 Misplaced box likely due to the edge formed by the pole
 
-![Road3](road6.png)
+![Road3](rImages/Image6.png)
 
 Slightly misplaced box likely due to the upper edge formed by grooves on the pole
 
-![Road3](road7.png)
+![Road3](Images/Image7.png)
 
 Very accurate prediction, considering the size of the object in the frame
 
