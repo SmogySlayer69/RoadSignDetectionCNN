@@ -34,8 +34,19 @@ The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
 <h2>Output Examples</h2>
+Classification Examples
 
 ![Road1](road34.png)
+
+Model Returns as Traffic Light - Reason for success is likely the size and distinct colors of the object itself
+
+![Road2](road58.png)
+
+Model Returns as Stop Sign - Reason for success is likely the simplicity of the background, as it is an almost soild color that is different from the color of the sign itself
+
+![Road3](road246.png)
+
+Model Returns as Traffic Light - Reason for failure is likely the confusion of the two signs, with the other sign being similar to a traffic light, and the small scale of the object
 
 <h2>Experiments:</h2>
 The Difference between Object Classification and Bounding Box Detection:
