@@ -34,6 +34,9 @@ The tools used in this model are primarily the Keras library, included with Tens
 The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which contains 4 classes of road signs with 877 images total, alongside their .xml files. 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
+<h2>Output Examples</h2>
+**Object Classification:**
+
 <h2>Experiments:</h2>
 **The Difference between Object Classification and Bounding Box Detection:**
 Object Classification and Bounding Box detection are two problems that require similar neural networks, with some minor differences. We use the same dataset for both problems. However, there are differences in the form of the data that we input into the models. For example, the data in object classification is one hot encoded, as it relates to classification between different categories, while the bounding box is not. 
@@ -69,24 +72,20 @@ model.add(Dense(4, activation='softmax'))
 
 **Bounding Box**
 ```
-input_shape = (w, h, 4)
-input = tf.keras.layers.Input(input_shape)
+model.add(tf.keras.layers.Input(input_shape))
 
-base = tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu', )(input)
-base = tf.keras.layers.MaxPooling2D()(base)
+model.add(tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu', ))
+model.add(tf.keras.layers.MaxPooling2D())
 
-base = tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu')(base)
-base = tf.keras.layers.MaxPooling2D()(base)
+model.add(tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'))
+model.add(tf.keras.layers.MaxPooling2D())
 
-base = tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu')(base)
-base = tf.keras.layers.MaxPooling2D()(base)
-base = tf.keras.layers.Flatten()(base)
 
-id = tf.keras.layers.Dense(64, activation='relu')(input)
-id = tf.keras.layers.Dense(32, activation='relu')(id)
-id = tf.keras.layers.Dense(4)(id)
 
-model = tf.keras.Model(input, outputs=[id])
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(64, activation='relu'))
+model.add(tf.keras.layers.Dense(32, activation='relu'))
+model.add(tf.keras.layers.Dense(4))
 ```
 Finally, the loss function of both problems is different, with the Object Classification using categorical cross-entropy, and the Bounding Box using mean squared error.
 
@@ -97,11 +96,15 @@ model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer='
 
 **Bounding Box**
 ```
-model.compile(loss=tf.keras.losses.mse, optimizer='sgd', metrics=[get_iou])
+model.compile(loss=tf.keras.losses.mse, optimizer='adam', metrics=[get_iou])
 ```
-There are lots of other subtle differences that help faciliate the usage of similar neural networks for different problems.
+
+Experiments involving the architectures of both Bounding Box Neural Networks and Classification Neural Networks reveals that BBNNs work better when the image is resized to a smaller size compared to the Classification NN (256 -> 32). Additionally, adding dropout layers after each Convolutional Layer improves accuracy for Classification NNs, but does not improve accuacy on BBNNs. While continuing to add Convolutional Layers works to a certain extend on BBNNs, there is a point in which the improvement of accuracy makes incredibly small returns for the training time. The number of convolutional layers in which the returns diminishes is a lot higher for Classification NNs, because CNNs are primarily built for partern recognition, which helps classify objects rather than determine their size. Overfitting is also more of a concern for BBNNs, as training for increased epochs will not improve overall accuracy, but rather decline it if overfitting is to occur. This is less of the case with Classification NNs, as increasing the number of training epochs usually translates to improved accuracy for most cases. However, this can be attributed to the pooling layers, which help reduce overfitting in most cases. However, as previously mentioned, pooling layers have a no/negative impact on the effectivness of BBNNs, which is why they were not implemented. Other similar experiements can be considered, such as the usage of VGG16/19 models, which are prebuilt architectures that can be utlized on large imagery to "break it down". There are many minor changes relating to the activiation of certain layers which may change the effectivness of either layer, but the effects are very subtle. However, a major experiement to try is the usage of different neural network types, such as RNNs or YOLOs.
 
 <h2>Architecture Hyperparameters Testing</h2>
+
+**Classification**
+
 
 | **Number of Convolutional Layers** | **Convolutional Layer Nodes** | **Number of Dropout Layers** | **Dropout Layer Strenght** | **Loss** | **Accuracy** |
 |------------------------------------|-------------------------------|------------------------------|----------------------------|----------|--------------|
