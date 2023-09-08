@@ -35,14 +35,16 @@ The dataset used is “Road Sign Detection” posted by Larxel on Kaggle, which 
 https://www.kaggle.com/datasets/andrewmvd/road-sign-detection 
 
 <h2>Output Examples</h2>
-**Object Classification:**
+Object Classification:
 
 <h2>Experiments:</h2>
-**The Difference between Object Classification and Bounding Box Detection:**
+The Difference between Object Classification and Bounding Box Detection:
 Object Classification and Bounding Box detection are two problems that require similar neural networks, with some minor differences. We use the same dataset for both problems. However, there are differences in the form of the data that we input into the models. For example, the data in object classification is one hot encoded, as it relates to classification between different categories, while the bounding box is not. 
 
 
 **Object Classification:**
+![Image1](/Users/Amogh/Documents/TrafficSignDetection/archive/images/road155.png)  
+
 ```
 Y_train = np_utils.to_categorical(Y_train, n_classes)
 Y_test = np_utils.to_categorical(Y_test, n_classes)
