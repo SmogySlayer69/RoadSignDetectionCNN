@@ -35,7 +35,7 @@ https://www.kaggle.com/datasets/andrewmvd/road-sign-detection
 
 <h2>Output Examples</h2>
 Object Classification:
-![road246](road246.png)
+![Road1](road34.png)
 
 <h2>Experiments:</h2>
 The Difference between Object Classification and Bounding Box Detection:
